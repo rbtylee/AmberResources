@@ -1,0 +1,7 @@
+import * from "../../lib/dpkg/dpkg.ab"
+
+main {
+    let valid = deb_is_valid("foobar.deb")
+    if valid {echo "valid"}
+    else {echo "invalid"}
+}  

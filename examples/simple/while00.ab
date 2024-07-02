@@ -1,0 +1,13 @@
+# Initialize a counter variable
+
+let counter = 1
+
+//Start the while loop
+
+loop {
+    if counter > 5: break
+    echo "Counter: {counter}"
+    counter += 1   
+}
+
+echo "Loop finished."

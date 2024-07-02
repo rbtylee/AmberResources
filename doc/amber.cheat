@@ -1,0 +1,103 @@
+Here are the keywords in alphabetical order:
+
+- and
+- as
+- break
+- continue
+- echo
+- else
+- fail
+- failed
+- from
+- fun
+- if
+- import
+- in
+- is
+- let
+- loop
+- main
+- nameof
+- not
+- or
+- pub
+- ref
+- return
+- silent
+- status
+- then
+- unsafe
+
+Here is a list of all the functions in std lib along with a short description for each:
+
+1. **chars(text: Text): [Text]**
+   - Splits the text into individual characters and returns them as a list.
+
+2. **dir_exist(path)**
+   - Checks if the specified directory exists.
+
+3. **exit(code: Num): Null**
+   - Exits the program with the given exit code.
+
+4. **file_append(path, content)**
+   - Appends the given content to the specified file.
+
+5. **file_exist(path)**
+   - Checks if the specified file exists.
+
+6. **file_read(path)**
+   - Reads the content of the specified file.
+
+7. **file_write(path, content)**
+   - Writes the given content to the specified file.
+
+8. **has_failed(command: Text): Bool**
+   - Checks if the given command has failed.
+
+9. **includes(arr, value)**
+   - Checks if the given value is included in the specified array.
+
+10. **input(prompt: Text): Text**
+    - Prompts the user for input and returns the entered text.
+
+11. **join(list: [Text], delimiter: Text): Text**
+    - Joins the elements of the list into a single string, separated by the given delimiter.
+
+12. **len(value): Num**
+    - Returns the length of the given text or array.
+
+13. **lower(text: Text): Text**
+    - Converts the given text to lowercase.
+
+14. **parse(text: Text): Num**
+    - Parses the given text as a number.
+
+15. **replace(source, pattern, replacement)**
+    - Replaces all occurrences of the pattern in the source text with the replacement text.
+
+16. **replace_once(source, pattern, replacement)**
+    - Replaces the first occurrence of the pattern in the source text with the replacement text.
+
+17. **replace_regex(source: Text, pattern: Text, replacement: Text): Text**
+    - Replaces all occurrences of the pattern in the source text with the replacement text using regular expressions.
+
+18. **split(text: Text, delimiter: Text): [Text]**
+    - Splits the text into a list of strings using the given delimiter.
+
+19. **sum(list: [Num]): Num**
+    - Calculates the sum of the numbers in the list.
+
+20. **trim(text: Text): Text**
+    - Removes leading and trailing whitespace from the text.
+
+21. **trim_left(text: Text): Text**
+    - Removes leading whitespace from the text.
+
+22. **trim_right(text: Text): Text**
+    - Removes trailing whitespace from the text.
+
+23. **upper(text: Text): Text**
+    - Converts the given text to uppercase.
+
+24. **words(text: Text): [Text]**
+    - Splits the text into a list of words.

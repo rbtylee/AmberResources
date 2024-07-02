@@ -1,0 +1,114 @@
+// extract.ab: An amber extraction library function
+//
+// Copyright 2024 ylee@bodhilinux.com
+//
+// This work is free. You can redistribute it and/or modify it under the
+// terms of the Do What The Fuck You Want To Public License, Version 2,
+// as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
+
+// Amber version of Bash-it extract function (simplified somewhat)
+// Added mkdir repects verbosity
+//       Only process if file exist
+
+// This is a work in progress, not everything may work right
+// not well tested and no tests
+
+import * from "std"
+
+pub fun extract(path: Text, verbose: Bool): Null{
+    if file_exist(path) {
+        let filename = unsafe $basename -- {path}$
+        let dirname  = unsafe $dirname -- {path}$
+        if verbose : let v = "v"
+        else: let v = ""
+
+        let target = unsafe $sed 's/\(\.tar\.bz2\$\|\.tbz\$\|\.tbz2\$\|\.tar\.gz\$\|\.tgz\$\|\.tar\$\|\.tar\.xz\$\|\.txz\$\|\.tar\.Z\$\|\.7z\$\|\.nupkg\$\|\.zip\$\|\.war\$\|\.jar\$\)//g' <<< {filename}$
+        // Order is important here as we need .tar.gz processed before .gz and same with similar items
+        let supported = [".7z",".tar.bz2",".bz2",".deb",".tar.gz",".gz",".jar",".nupkg",".pax",".pax.gz",
+                        ".pkg",".rar",".rpm",".tar",".tar.xz", ".tar.Z",".tbz",".tbz2",".tgz",".txz",
+                        ".war",".xz",".Z",".zip"]
+
+        if {
+            filename == target: target = ""
+            verbose: unsafe  $mkdir -{v} {dirname}/{target}$
+            else: unsafe  $mkdir {dirname}/{target}$
+        }
+        loop ext in supported {
+            let base = unsafe $echo {filename} | sed -n "/{ext}\$/p"$
+            if len(base) > 0 {
+                if {
+                    ext == ".tar.bz2" or ext == ".tbz" or ext == ".tbz2" {
+                        unsafe $tar "x{v}jf" "{path}" -C "{dirname}/{target}"$
+                        break
+                    }
+                    ext == ".tar.gz" or ext == ".tgz" {
+                        unsafe $tar "x{v}zf" {path} -C {dirname}/{target}$
+                        break
+                    }
+                    ext == ".tar.xz" or ext == ".txz" {
+                        unsafe $tar "x{v}Jf" {path} -C {dirname}/{target}$
+                        break
+                    }
+                    ext == ".tar.Z" {
+                        unsafe $tar "x{v}Zf" {path} -C {dirname}/{target}$
+                        break
+                    }
+                    ext == ".bz2" {
+                        unsafe $bunzip2 {path}$
+                        break
+                    }
+                    ext == ".deb" {
+                        unsafe $dpkg-deb -x{v} {path} "\$\{1:0:-4}"$
+                        break
+                    }
+                    ext == ".pax.gz" {
+                        unsafe $gunzip {path}; set -- "\$@" "\$\{1:0:-3}"$
+                        break
+                    }
+                    ext == ".gz" {
+                        unsafe $gunzip {path}$
+                        break
+                    }
+                    ext == ".pax" {
+                        unsafe $pax -r -f {path}$
+                        break
+                    }
+                    ext == ".pkg" {
+                        unsafe $pkgutil --expand {path} "\$\{1:0:-4}"$
+                        break
+                    }
+                    ext == ".rar" {
+                        unsafe $unrar x {path}$
+                        break
+                    }
+                    ext == ".rpm" {
+                        unsafe $rpm2cpio {path} | cpio -idm{v}$
+                        break
+                    }
+                    ext == ".tar" {
+                        unsafe $tar "x{v}f" {path} -C {dirname}/{target}$
+                        break
+                    }
+                    ext == ".xz" {
+                        unsafe $xz --decompress {path}$
+                        break
+                    }
+                    ext == ".zip" or ext == ".war" or ext == ".jar" or ext == ".nupkg" {
+                        unsafe $unzip {path} -d {dirname}/{target}$
+                        break
+                    }
+                    ext == ".Z" {
+                        unsafe $uncompress {path}$
+                        break
+                    }
+                    else {
+                        echo "Error: Unsupported file type"
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    else: echo "Error: File not found"
+}

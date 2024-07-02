@@ -1,0 +1,2 @@
+./DEBIAN/control
+./DEBIAN/md5sums

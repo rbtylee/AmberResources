@@ -1,0 +1,13 @@
+import * from "std"
+import * from "../../lib/dpkg/dpkg.ab"
+
+main {
+    let control = deb_list_control(unsafe $echo \$DPKG_AM_TEST_DEB$)
+    let package = deb_list_pkg(unsafe $echo \$DPKG_AM_TEST_DEB$)
+    let all     = deb_list(unsafe $echo \$DPKG_AM_TEST_DEB$)
+    let lc = len(control)
+    let lp = len(package)
+    // Possible bug here can not use the len(*) in the right hand side of the equality
+    if len(all) == lc + lp : echo "valid" 
+    else: echo "invalid" 
+}

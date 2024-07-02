@@ -1,0 +1,65 @@
+// extract.ab: An amber extraction library function
+//
+// Copyright 2024 Robert Wiley <ylee@bodhilinux.com>
+//
+// This work is free. You can redistribute it and/or modify it under the
+// terms of the Do What The Fuck You Want To Public License, Version 2,
+// as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
+
+// Amber version of Bash-it extract function (simplified somewhat)
+// Added mkdir repects verbosity
+//       Only process if file exist
+
+// This is a work in progress, not everything may work right
+// not well tested and no tests
+
+import * from "std"
+
+pub fun glob(path:Text, pattern:[Text]): Bool
+{
+    loop p in pattern {
+        $[[ {path} =~ {p}\$ ]]$ failed {
+            continue}
+        return true
+        
+    }
+    return false
+}
+
+pub fun extract(path: Text, verbose: Bool): Null{
+    if file_exist(path) {
+        let filename = unsafe $basename -- {path}$
+        let dirname  = unsafe $dirname -- {path}$
+        if verbose : let v = "v"
+        else: let v = ""
+
+        let target = unsafe $sed 's/\(\.tar\.bz2\$\|\.tbz\$\|\.tbz2\$\|\.tar\.gz\$\|\.tgz\$\|\.tar\$\|\.tar\.xz\$\|\.txz\$\|\.tar\.Z\$\|\.7z\$\|\.nupkg\$\|\.zip\$\|\.war\$\|\.jar\$\)//g' <<< {filename}$
+        
+        if {
+            filename == target: target = ""
+            verbose: unsafe  $mkdir -{v} {dirname}/{target}$
+            else: unsafe  $mkdir {dirname}/{target}$
+        }
+        
+        if {
+            glob(path, [".tar.bz2", ".tbz", ".tbz2"]): unsafe $tar "x{v}jf" "{path}" -C "{dirname}/{target}"$
+            glob(path, [".tar.gz", ".tgz"]): unsafe $tar "x{v}zf" {path} -C {dirname}/{target}$
+            glob(path, [".tar.xz", ".txz"]): unsafe $tar "x{v}Jf" {path} -C {dirname}/{target}$
+            glob(path, [".tar.Z"]): unsafe $tar "x{v}Zf" {path} -C {dirname}/{target}$
+            glob(path, [".bz2"]): unsafe $bunzip2 {path}$
+            glob(path, [".deb"]): unsafe $dpkg-deb -x{v} {path} "\$\{1:0:-4}"$
+            glob(path, [".pax.gz"]): unsafe $gunzip {path}; set -- "\$@" "\$\{1:0:-3}"$
+            glob(path, [".gz"]): unsafe $gunzip {path}$
+            glob(path, [".pax"]): unsafe $pax -r -f {path}$
+            glob(path, [".pkg"]): unsafe $pkgutil --expand {path} "\$\{1:0:-4}"$
+            glob(path, [".rar"]): unsafe $unrar x {path}$
+            glob(path, [".rpm"]): unsafe $rpm2cpio {path} | cpio -idm{v}$
+            glob(path, [".tar"]): unsafe $tar "x{v}f" {path} -C {dirname}/{target}$
+            glob(path, [".xz"]): unsafe $xz --decompress {path}$
+            glob(path, [".zip", ".war", ".jar", ".nupkg"]): unsafe $unzip {path} -d {dirname}/{target}$
+            glob(path, [".Z"]): unsafe $uncompress {path}$
+            else: echo "Error: Unsupported file type"
+        }    
+    }
+    else: echo "Error: File not found"
+}

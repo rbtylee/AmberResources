@@ -1,0 +1,6 @@
+import * from "../../lib/dpkg/dpkg.ab"
+
+main {
+    let a = deb_list_pkg(unsafe $echo \$DPKG_AM_TEST_DEB$)
+    loop line in a{ echo line}
+}  

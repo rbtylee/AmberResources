@@ -1,0 +1,63 @@
+import * from "std"
+
+pub fun  deb_extract_debian(deb: Text, path: Text): Null {
+    // on failure let user see stdout. no need to silence
+    if not dir_exist(path) : unsafe $mkdir -p {path}$
+    unsafe $dpkg -e {deb} {path}/DEBIAN$
+}
+
+pub fun  deb_extract_pkg(deb: Text, path: Text): Null {
+    unsafe $dpkg -x {deb} {path}$
+}
+
+pub fun  deb_extract(deb: Text, path: Text): Null {
+    deb_extract_debian(deb, path)
+    deb_extract_pkg(deb, path)
+}
+
+pub fun deb_is_valid(deb: Text): Bool {
+    if len(silent unsafe $dpkg -I {deb}$) > 0 : return true
+    return false
+
+}
+
+pub fun deb_list_pkg(deb: Text): [Text] {
+    let arr = [Text]
+    let result = [Text]
+    let tmp = [Text]
+    // no need to test if valid deb file. If it is invalid returns empty array
+    let output = unsafe $dpkg -c {deb} 2>/dev/null$
+    arr = lines( output)
+    loop i in 1..len(arr){
+        tmp = words(arr[i])
+        result[i] = tmp[5]
+    }
+    return result
+ }
+
+pub fun deb_list_control(deb: Text): [Text] {
+    let result = [Text]
+    unsafe $tmpdir=\$(mktemp -d /tmp/amber-XXXXXX)$
+    unsafe $chmod +r "\$tmpdir"$
+    unsafe $trap 'rm -rf -- \$tmpdir' INT TERM HUP EXIT$
+    deb_extract_debian(deb, unsafe $echo \$tmpdir$ )
+    let output = unsafe $for file in \$tmpdir/DEBIAN/*; do echo "\$(basename "\$file")"; done$
+    result = lines(output)
+    loop i in 0..len(result) {
+        result[i] = "./DEBIAN/{result[i]}"
+    }
+    return result
+}
+
+pub fun deb_list(deb: Text): [Text] {
+    let result = [Text]
+    let control = deb_list_control(deb)
+    let pkg = deb_list_pkg(deb)
+    let lc = len(control)
+    let lp = len(pkg)
+    loop i in 0..lc {
+        result[i] = control[i]
+    }
+    loop i in 0..lp { result[i+lc] = pkg[i] }
+    return result
+}
