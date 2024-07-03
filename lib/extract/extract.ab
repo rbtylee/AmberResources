@@ -1,17 +1,6 @@
 // extract.ab: An amber extraction library function
 //
 // Copyright 2024 Robert Wiley <ylee@bodhilinux.com>
-//
-// This work is free. You can redistribute it and/or modify it under the
-// terms of the Do What The Fuck You Want To Public License, Version 2,
-// as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
-
-// Amber version of Bash-it extract function (simplified somewhat)
-// Added mkdir repects verbosity
-//       Only process if file exist
-
-// This is a work in progress, not everything may work right
-// not well tested and no tests
 
 import * from "std"
 
