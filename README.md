@@ -4,11 +4,11 @@
 
 A collection of [Amber Programming Language](https://amber-lang.com/) libraries and other resources.
 
-Amber is under active development and currently only in a beta release. All amber code in this repo has been tested on the latest Official Release. I expect some breakage with future releases. Please report any breakage issues you find. This is still a work in progress.
+Amber is under active development and is currently only in a beta release. All amber code in this repo has been tested on the latest Official Release. I expect some breakage with future releases. Please report any breakage issues you find. This is still a work in progress.
 
 ## Why Amber
 
-> Amber is a next step in making the shell scripting more accessible and more maintainable. It's foundation is to solve the problems that couldn't be solved with just Bash and too clunky to use Bash library for.
+> Amber is a next step in making the shell scripting more accessible and more maintainable. Its foundation is to solve the problems that couldn't be solved with just Bash and too clunky to use Bash library for.
 >
 > I think that it would lower the bar to enter Linux ecosystem and make is easier to organise and maintain scripts. Furthermore I believe that Amber will improve the developer experience when writing scripts that manage necessary workflows.
 >
@@ -20,7 +20,7 @@ Amber is under active development and currently only in a beta release. All ambe
 
 ## Cloning
 
-BATS is used for testing so after you clone this repo:
+[BATS](https://bats-core.readthedocs.io/en/stable/) is used for testing so after you clone this repo:
 
 ```
 git submodule init
