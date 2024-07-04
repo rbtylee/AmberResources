@@ -1,0 +1,140 @@
+// Broadcom device driver finder and installer
+// amber port of Stefan (the_waiter) Uram bcm script
+//
+// Copyright 2024 ylee@bodhilinux.com
+
+import * from "std"
+
+pub fun is_valid(reply:Text, pattern:[Text]): Bool{
+	let var = lower(reply)
+	loop p in pattern {
+		$[[ {var} == {p} ]]$ failed {
+			continue }
+	return true
+	}
+	return false
+}
+
+pub fun has_prefix(var:Text, pattern:[Text]): Bool
+{
+	loop p in pattern {
+		$[[ {var} == {p}* ]]$ failed {
+			continue }
+		return true
+	}
+	return false
+}
+
+fun b43(): Null {
+	unsafe $\$SUDO \$APT_FRONTEND purge bcmwl-kernel-source$
+	unsafe $\$SUDO \$APT_FRONTEND install firmware-b43-installer && \$SUDO \$APT_FRONTEND install linux-firmware$
+}
+
+fun b43legacy(): Null {
+	unsafe $\$SUDO \$APT_FRONTEND purge bcmwl-kernel-source$
+	unsafe $\$SUDO \$APT_FRONTEND install firmware-b43legacy-installer && \$SUDO \$APT_FRONTEND install linux-firmware$
+}
+
+fun bcmwl(): Null {
+	unsafe $\$SUDO \$APT_FRONTEND purge firmware-b43-installer$
+	unsafe $\$SUDO \$APT_FRONTEND install bcmwl-kernel-source$
+}
+
+fun is_user_root ():Bool {
+	let result = unsafe $[ "\$\{EUID:-\$(id -u)}" -eq 0 ]; $
+	if status == 0: return true
+	return false
+}
+
+fun _bcm_command_defines():Null {
+	if is_user_root (): unsafe $SUDO=$
+	else: unsafe $SUDO=sudo$
+
+	let nala=unsafe $nala --version 2>/dev/null$
+	if len(nala) > 0 : unsafe $APT_FRONTEND=nala$
+	else: unsafe $APT_FRONTEND=apt$
+}
+
+fun bcm_echo(msg:Text):Null {
+	unsafe $echo -e "\e[1;31m"$
+	echo msg
+	unsafe $echo -e "\e[0m"$
+}
+
+fun installer(broadcom: Text): Null {
+	// FIXME: DEBUG
+	_bcm_command_defines()
+	bcm_echo("installing {broadcom}")
+	if {
+		has_prefix(broadcom, ["b43"]):       b43()
+		has_prefix(broadcom, ["bcmwl"]):     bcmwl()
+		has_prefix(broadcom, ["b43legacy"]): b43legacy()
+	}
+}
+
+fun question (broadcom: Text): Null {
+	loop {
+		let reply = input("Do you wish to install the suitable bcm driver [y/n]? ")
+		if {
+			is_valid(reply, ["y", "yes"]) {
+				installer(broadcom)
+				break }
+			is_valid(reply, ["n", "no"]): exit(0)
+		}
+	}
+}
+
+fun bcm_device():Text {
+	let device = unsafe $lspci -nn -d 14e4: | awk -F"14e4:" '\{print \$2}'$
+	device = replace_regex(device, "[][()]","")
+	device = replace_regex(device, " ","")
+	return device
+}
+
+// FIXME: Poor name since it returns device
+//        should it exit
+fun is_bcm_device():Text {
+	let device = bcm_device()
+	// FIXME: DEBUG
+	//device = "1713"
+	if len(device) == 0 {
+		bcm_echo("Your Wifi device is not Broadcom!")
+		exit(0) }
+	else: bcm_echo("Your Wifi device: bcm Broadcom 14e4:{device}")
+	return device
+}
+
+fun is_ubuntu():Bool {
+	if not file_exist("/etc/os-release"): return false
+	$grep -qi "ubuntu" /etc/os-release$ failed: return false
+	return true
+}
+
+main {
+    if not is_ubuntu(): exit(1)
+
+    let devices_b43 = [
+        "1713",         "4306rev03",    "4307",         "4311",
+        "4311rev01",    "4312",         "4313",         "4315",
+        "4315rev01",    "4318",         "4318rev02",    "4319",
+        "4320rev02",    "4320rev03",    "4321",         "4324",
+        "4325",         "4328",         "4331",         "4335",
+        "4350",         "4353rev01",    "4359",         "4360",
+        "4365",         "43a3",         "43barev01",    "43c3rev04",
+        "a962" ]
+     let devices_bcmwl = [
+        "4328rev03",    "4329",     "432a",      "432b",
+        "432c",         "432d",     "4358",      "4365rev01",
+        "43a0",         "43b1",     "43b1rev03", "4727" ]
+    let devices_b43legacy=[
+        "4301",         "4306rev02" ]
+
+	let device = is_bcm_device()
+	if {
+		has_prefix(device, devices_bcmwl):    question("bcmwl")
+		has_prefix(device, devices_b43):      question("b43")
+		has_prefix(device, devices_b43legacy): question("b43legacy")
+		else: echo "Unidentified device Broadcom 14e4:{device}"
+	}
+	exit(0)
+}
