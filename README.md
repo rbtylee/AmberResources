@@ -22,7 +22,7 @@ Amber is under active development and is currently only in a beta release. All a
 ## Prerequisites
 
 - [Bash](https://www.gnu.org/software/bash/)
-= [Amber](https://amber-lang.com/)
+- [Amber](https://amber-lang.com/)
 
 And whatever commands that are used in the amber libs or scripts.
 
