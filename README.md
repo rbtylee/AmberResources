@@ -17,6 +17,14 @@ Amber is under active development and is currently only in a beta release. All a
 > Amber is meant to be portable, safe, modern, predictable and readable.
 >
 > - [Phoenix](https://github.com/Ph0enixKM/Amber/discussions/227)
+>
+
+## Prerequisites
+
+- [Bash](https://www.gnu.org/software/bash/)
+= [Amber](https://amber-lang.com/)
+
+And whatever commands that are used in the amber libs or scripts.
 
 ## Cloning
 
