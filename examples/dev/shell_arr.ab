@@ -1,0 +1,21 @@
+// Amber version: 0.3.4-alpha
+
+import * from "std"
+
+pub fun shell_arr_set(name: Text, val: [Text]): Null {
+    $declare -g \${nameof name} 2> /dev/null$?
+    $eval "{name}=(\"\$\{val[@]}\")"$?
+}
+
+pub fun shell_arr_get(name: Text): [Text] {
+   unsafe $eval "result=(\\"\\$\{\$\{name}[@]}\\")"$
+   return split(unsafe $echo "\$\{result[@]}"$, " ")
+}
+
+main {
+    let devices_b43legacy=[
+        "4301",         "4306rev02" ]
+    unsafe shell_arr_set("test", devices_b43legacy)
+    $echo "main: devices_b43legacy=(\$\{test[@]})"$?
+    echo shell_arr_get("test")
+}
