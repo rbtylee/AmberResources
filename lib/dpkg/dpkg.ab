@@ -16,9 +16,8 @@ pub fun  deb_extract(deb: Text, path: Text): Null {
 }
 
 pub fun deb_is_valid(deb: Text): Bool {
-    if len(silent unsafe $dpkg -I {deb}$) > 0 : return true
+    if len(unsafe $dpkg -I {deb} 2>/dev/null$) > 0 : return true
     return false
-
 }
 
 pub fun deb_list_pkg(deb: Text): [Text] {
