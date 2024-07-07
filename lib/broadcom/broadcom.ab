@@ -18,19 +18,25 @@ pub fun bcmwl(): Null {
 	unsafe $\$SUDO \$APT_FRONTEND install bcmwl-kernel-source$
 }
 
-pub fun _bcm_command_defines():Null {
-	if is_root(): unsafe $SUDO=$
-	else: unsafe $SUDO=sudo$
-
-	let nala=unsafe $nala --version 2>/dev/null$
-	if len(nala) > 0 : unsafe $APT_FRONTEND=nala$
-	else: unsafe $APT_FRONTEND=apt$
-}
-
 pub fun bcm_echo(msg:Text):Null {
 	unsafe $echo -e "\e[1;31m"$
 	echo msg
 	unsafe $echo -e "\e[0m"$
+}
+
+pub fun _bcm_command_defines():Null {
+	if {
+        is_root(): unsafe $SUDO=$
+		user_can_sudo(): unsafe $SUDO=sudo$
+		else: {
+			bcm_echo("Error: user can not run sudo")
+			exit(1)
+		}
+	}
+
+	let nala=unsafe $nala --version 2>/dev/null$
+	if len(nala) > 0 : unsafe $APT_FRONTEND=nala$
+	else: unsafe $APT_FRONTEND=apt$
 }
 
 pub fun installer(broadcom: Text): Null {
