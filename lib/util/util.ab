@@ -30,3 +30,20 @@ pub fun current_path(): Text {
 pub fun reverse(string:Text): Text {
 	return unsafe $echo "{string}" | rev$
 }
+
+pub fun clipboard_copy(string:Text): Null {
+	if {
+		is_command("xclip"):  unsafe  $echo -n "{string}" | xclip -selection clipboard$
+		is_command("xsel"):   unsafe $echo -n "{string}" | xsel --input --clipboard$
+		is_command("pbcopy"): unsafe $echo -n "{string}" | pbcopy$
+	}
+}
+
+pub fun clipboard_paste(): Text {
+	if {
+		is_command("xclip"):  unsafe  $xclip -selection clipboard -o 2>/dev/null$
+		is_command("xsel"):   unsafe  $xsel --clipboard --output 2>/dev/null$
+		is_command("pbpaste"): unsafe $pbpaste 2>/dev/null$
+	}
+	return ""
+}
