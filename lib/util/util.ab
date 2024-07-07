@@ -1,7 +1,12 @@
-import { file_exist } from "std"
+import * from "std"
 
 pub fun is_ubuntu():Bool {
 	if not file_exist("/etc/os-release"): return false
 	$grep -qi "ubuntu" /etc/os-release$ failed: return false
 	return true
+}
+
+pub fun in_string(string: Text, value: Text): Bool {
+    $echo "{string}" | grep -q "{value}"$ failed: return false
+    return true
 }
