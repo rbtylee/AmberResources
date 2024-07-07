@@ -1,0 +1,25 @@
+//
+// Copyright 2024 ylee@bodhilinux.com
+
+import { lower } from "std"
+
+pub fun is_valid(reply:Text, pattern:[Text]): Bool{
+	let var = lower(reply)
+	loop p in pattern {
+		$[[ {var} == {p} ]]$ failed {
+			continue }
+	return true
+	}
+	return false
+}
+
+pub fun has_prefix(var:Text, pattern:[Text]): Bool
+{
+	loop p in pattern {
+		$[[ {var} == {p}* ]]$ failed {
+			continue }
+		return true
+	}
+	return false
+}
+

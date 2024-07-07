@@ -1,0 +1,11 @@
+import { split } from "std"
+
+pub fun shell_arr_set(name: Text, val: [Text]): Null {
+    unsafe $declare -g \${nameof name} 2> /dev/null$
+    unsafe $eval "{name}=(\"\$\{val[@]}\")"$
+}
+
+pub fun shell_arr_get(name: Text): [Text] {
+   unsafe $eval "result=(\\"\\$\{\$\{name}[@]}\\")"$
+   return split(unsafe $echo "\$\{result[@]}"$, " ")
+}

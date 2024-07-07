@@ -1,0 +1,85 @@
+import * from "std"
+import * from "../glob/glob.ab"
+import * from "../util/util.ab"
+import * from "../shell_arr/shell_arr.ab"
+
+pub fun b43(): Null {
+	unsafe $\$SUDO \$APT_FRONTEND purge bcmwl-kernel-source$
+	unsafe $\$SUDO \$APT_FRONTEND install firmware-b43-installer && \$SUDO \$APT_FRONTEND install linux-firmware$
+}
+
+pub fun b43legacy(): Null {
+	unsafe $\$SUDO \$APT_FRONTEND purge bcmwl-kernel-source$
+	unsafe $\$SUDO \$APT_FRONTEND install firmware-b43legacy-installer && \$SUDO \$APT_FRONTEND install linux-firmware$
+}
+
+pub fun bcmwl(): Null {
+	unsafe $\$SUDO \$APT_FRONTEND purge firmware-b43-installer$
+	unsafe $\$SUDO \$APT_FRONTEND install bcmwl-kernel-source$
+}
+
+pub fun _bcm_command_defines():Null {
+	if is_root(): unsafe $SUDO=$
+	else: unsafe $SUDO=sudo$
+
+	let nala=unsafe $nala --version 2>/dev/null$
+	if len(nala) > 0 : unsafe $APT_FRONTEND=nala$
+	else: unsafe $APT_FRONTEND=apt$
+}
+
+pub fun bcm_echo(msg:Text):Null {
+	unsafe $echo -e "\e[1;31m"$
+	echo msg
+	unsafe $echo -e "\e[0m"$
+}
+
+pub fun installer(broadcom: Text): Null {
+	// FIXME: DEBUG
+	_bcm_command_defines()
+	bcm_echo("installing {broadcom}")
+	if {
+		has_prefix(broadcom, ["b43"]):       b43()
+		has_prefix(broadcom, ["bcmwl"]):     bcmwl()
+		has_prefix(broadcom, ["b43legacy"]): b43legacy()
+	}
+}
+
+pub fun bcm_device():Text {
+	let device = unsafe $lspci -nn -d 14e4: | awk -F"14e4:" '\{print \$2}'$
+	device = replace_regex(device, "[][()]","")
+	device = replace_regex(device, " ","")
+	return device
+}
+
+// FIXME: Poor name since it returns device
+//        should it exit
+pub fun is_bcm_device():Text {
+	let device = bcm_device()
+	// FIXME: DEBUG
+	//device = "1713"
+	if len(device) == 0 {
+		bcm_echo("Your Wifi device is not Broadcom!")
+		exit(0) }
+	else: bcm_echo("Your Wifi device: bcm Broadcom 14e4:{device}")
+	return device
+}
+
+let _devices_b43 = [
+    "1713",         "4306rev03",    "4307",         "4311",
+    "4311rev01",    "4312",         "4313",         "4315",
+    "4315rev01",    "4318",         "4318rev02",    "4319",
+    "4320rev02",    "4320rev03",    "4321",         "4324",
+    "4325",         "4328",         "4331",         "4335",
+    "4350",         "4353rev01",    "4359",         "4360",
+    "4365",         "43a3",         "43barev01",    "43c3rev04",
+    "a962" ]
+let _devices_bcmwl = [
+    "4328rev03",    "4329",     "432a",      "432b",
+    "432c",         "432d",     "4358",      "4365rev01",
+    "43a0",         "43b1",     "43b1rev03", "4727" ]
+let _devices_b43legacy=[
+    "4301",         "4306rev02" ]
+
+unsafe shell_arr_set("devices_b43", _devices_b43)
+unsafe shell_arr_set("devices_bcmwl", _devices_bcmwl)
+unsafe shell_arr_set("devices_b43legacy", _devices_b43legacy)

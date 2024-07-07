@@ -1,0 +1,40 @@
+// Broadcom device driver finder and installer
+// amber port of Stefan (the_waiter) Uram bcm script
+//
+// Copyright 2024 ylee@bodhilinux.com
+
+import * from "std"
+import * from "../../lib/broadcom/broadcom.ab"
+import * from "../../lib/broadcom/bcm_devices.ab"
+import * from "../../lib/glob/glob.ab"
+import * from "../../lib/shell_arr/shell_arr.ab"
+import * from "../../lib/util/util.ab"
+
+fun question (broadcom: Text): Null {
+	loop {
+		let reply = input("Do you wish to install the suitable bcm driver [y/n]? ")
+		if {
+			is_valid(reply, ["y", "yes"]) {
+				installer(broadcom)
+				break }
+			is_valid(reply, ["n", "no"]): exit(0)
+		}
+	}
+}
+
+main {
+    if not is_ubuntu(): exit(1)
+
+	let dev_bcmwl = shell_arr_get("devices_bcmwl")
+	let dev_b43 = shell_arr_get("devices_b43")
+	let dev_b43legacy = shell_arr_get("devices_b43legacy")
+
+	let device = is_bcm_device()
+	if {
+		has_prefix(device, dev_bcmwl):    question("bcmwl")
+		has_prefix(device, dev_b43):      question("b43")
+		has_prefix(device, dev_b43legacy): question("b43legacy")
+		else: echo "Unidentified device Broadcom 14e4:{device}"
+	}
+	exit(0)
+}
