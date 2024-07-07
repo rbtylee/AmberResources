@@ -1,0 +1,7 @@
+pub fun in_string(haystack: Text, needle: Text): Bool {
+    $echo "{haystack}" | grep -q "{needle}"$ failed: return false
+    return true
+}
+
+if in_string("THIS IS A TEST bodhi","bodhi"): echo "yes"
+else: echo "no"
