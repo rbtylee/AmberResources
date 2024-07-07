@@ -11,6 +11,7 @@ pub fun in_string(string: Text, value: Text): Bool {
     return true
 }
 
+// See https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh#L86
 pub fun user_can_sudo():Bool {
 	// Check if sudo is installed
 	if not is_command("sudo"): return false
