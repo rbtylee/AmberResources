@@ -10,3 +10,14 @@ pub fun in_string(string: Text, value: Text): Bool {
     $echo "{string}" | grep -q "{value}"$ failed: return false
     return true
 }
+
+pub fun user_can_sudo():Bool {
+	// Check if sudo is installed
+	if not is_command("sudo"): return false
+	// Termux can't run sudo, so we can detect it and exit.
+	let termux = get_env_var("PREFIX")
+	if in_string(termux, "com.termux"): return false
+	//  Check if user has sudo privileges
+	$LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"$ failed: return true
+	return false
+}
