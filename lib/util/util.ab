@@ -22,3 +22,8 @@ pub fun user_can_sudo():Bool {
 	$LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"$ failed: return true
 	return false
 }
+
+pub fun current_path(): Text {
+    return unsafe $echo \$PWD$
+}
+
