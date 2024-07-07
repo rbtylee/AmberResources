@@ -27,3 +27,6 @@ pub fun current_path(): Text {
     return unsafe $echo \$PWD$
 }
 
+pub fun reverse(string:Text): Text {
+	return unsafe $echo "{string}" | rev$
+}
