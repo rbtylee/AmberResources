@@ -11,7 +11,7 @@ setup() {
         export TEMP_DIR=$(mktemp -d /tmp/dpkg_am-XXXXXX)
         echo "Created temporary directory: $TEMP_DIR"
     fi
-    cd "$BATS_TEST_DIRNAME/dpkg_tests"
+    cd "$BATS_TEST_DIRNAME/lib_tests/dpkg_tests/"
 }
 
 teardown() {

@@ -1,5 +1,5 @@
 import * from "std"
-import * from "../../lib/dpkg/dpkg.ab"
+import * from "../../../lib/dpkg/dpkg.ab"
 
 main {
     let control = deb_list_control(unsafe $echo \$DPKG_AM_TEST_DEB$)

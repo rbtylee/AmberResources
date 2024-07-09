@@ -1,7 +1,7 @@
-import * from "../../lib/dpkg/dpkg.ab"
+import * from "../../../lib/dpkg/dpkg.ab"
 
 main {
     let deb = unsafe $echo \$DPKG_AM_TEST_DEB$
     let path = unsafe $echo \$TEMP_DIR$
-    deb_extract_pkg(deb, path)
-} 
+    deb_extract_debian(deb, path)
+}  
