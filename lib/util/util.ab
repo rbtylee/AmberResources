@@ -6,11 +6,6 @@ pub fun is_ubuntu():Bool {
 	return true
 }
 
-pub fun in_string(string: Text, value: Text): Bool {
-    $echo "{string}" | grep -q "{value}"$ failed: return false
-    return true
-}
-
 // See https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh#L86
 pub fun user_can_sudo():Bool {
 	// Check if sudo is installed
@@ -25,10 +20,6 @@ pub fun user_can_sudo():Bool {
 
 pub fun current_path(): Text {
     return unsafe $echo \$PWD$
-}
-
-pub fun reverse(string:Text): Text {
-	return unsafe $echo "{string}" | rev$
 }
 
 pub fun clipboard_copy(string:Text): Null {

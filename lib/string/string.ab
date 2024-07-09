@@ -71,7 +71,6 @@ pub fun zfill(string: Text, val:Num): Text {
     lpad(string, "0", val)
 }
 
-// in utils for now :)
 pub fun reverse(string:Text): Text {
 	return unsafe $echo "{string}" | rev$
 }
