@@ -39,6 +39,7 @@ main{
     echo to_string("what")
     echo to_string(3)
     echo to_string(["Help", "me"])
+    echo to_string([1,2,3])
     //  unable to handle mixed arrays
     //  echo to_string(["Help", "me", 2130])
 }
