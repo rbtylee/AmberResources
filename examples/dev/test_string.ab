@@ -1,0 +1,44 @@
+import * from "std"
+import * from "../../lib/string/string.ab"
+
+
+main{
+    // String concaculation
+    let a = "Hello"
+    let b = "world"
+    let c = a + b
+    echo c
+    // string index
+    echo char_at(c, 3)
+    echo char_at(c, 3.3)
+    echo char_at(c, -3) 
+    echo "Empty"
+    echo char_at("", 2)
+    // string substring
+    // show result on negative values
+    echo slice(c,5,4)
+
+    echo "Empty"
+    echo slice("", 2,2)
+    // reverse
+    echo reverse(c)
+    // repeat
+    echo "repeat"
+    echo repeat("abc", 3)
+    echo repeat("abc", -1)
+    echo rpad("hello","-",10)
+    echo lpad("hello","-",10)
+
+
+
+    echo char_set(c, 3, "Q")
+    echo char_set(c, 0, "Q")
+    echo char_set(c, 44, "Q")
+    echo char_set("", 3, "Q")
+
+    echo to_string("what")
+    echo to_string(3)
+    echo to_string(["Help", "me"])
+    //  unable to handle mixed arrays
+    //  echo to_string(["Help", "me", 2130])
+}

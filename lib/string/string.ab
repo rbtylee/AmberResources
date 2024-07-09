@@ -1,0 +1,83 @@
+import * from "std"
+
+pub fun to_string(value): Text {
+    if {
+        value is Text: return "{value}"
+        value is Num: {
+            //let a = unsafe $echo "{value}"$
+            return unsafe $echo "{value}"$
+            }
+        value is [Text] or value is [Num]: return  unsafe $IFS="" ; echo "\$\{{nameof value}[*]}"$
+    }
+    return ""
+}
+
+pub fun _floor_(val:Num): Num {
+    return unsafe parse(replace(to_string(val), ".*", ""))
+}
+
+pub fun slice(string: Text, index:Num, length:Num): Text {
+    index = _floor_(index)
+    length  = _floor_(length)
+    return unsafe $echo "\$\{string:index:length}"$
+}
+
+pub fun char_at(string: Text, index:Num): Text {
+    return slice(string, index, 1)
+}
+
+pub fun char_set(string: Text, index:Num, char:Text): Text {
+    if {
+        len(char) == 0: return string
+        len(string) == 0: return char
+    }
+ 
+    char = char_at(char, 0)
+    index = _floor_(index) 
+    let last = slice(string, index+1, len(string)-index )
+    return slice(string, 0, index) + char + last
+}
+
+pub fun repeat(string: Text, value:Num): Text {
+    let i = 0
+    let ret = ""
+    if value < 0: return ret
+    loop {
+        if i == value:
+            break
+        i += 1
+        ret += string
+    }
+    return ret
+}
+
+pub fun rpad(string: Text, pad:Text, val:Num): Text {
+    if len(string) >= val: return string
+    if len(pad) > 1: pad = char_at(pad,0)
+    let adjoin=val - len(string)
+    string = string + repeat(pad, adjoin)
+    return string
+}
+
+pub fun lpad(string: Text, pad:Text, val:Num): Text {
+    if len(string) >= val: return string
+    if len(pad) > 1: pad = char_at(pad,0)
+    let adjoin=val - len(string)
+    string = repeat(pad, adjoin) + string
+    return string
+}
+
+pub fun zfill(string: Text, val:Num): Text {
+    lpad(string, "0", val)
+}
+
+// in utils for now :)
+pub fun reverse(string:Text): Text {
+	return unsafe $echo "{string}" | rev$
+}
+
+pub fun in_string(string: Text, value: Text): Bool {
+    $echo "{string}" | grep -q "{value}"$ failed: return false
+    return true
+}
+
