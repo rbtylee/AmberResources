@@ -34,10 +34,11 @@ And whatever commands that are used in the amber libs or scripts.
 git submodule init
 git submodule update
 ```
-### to run tests:
+
+### to run tests
 
 ```
-./test/bats/bin/bats test/test.bats
+./test/bats/bin/bats test/
 ```
 
 ## Amber dpkg Library

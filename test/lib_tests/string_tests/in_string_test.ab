@@ -1,0 +1,10 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = in_string("Bash Rocks", "ash")
+let r1 = in_string("Bash Rocks", "nope")
+let r2 = in_string("Bash Rocks", "")
+let r3 = in_string("", "Yes")
+let r4 = in_string("", "")
+
+echo "{r0} {r1} {r2} {r3} {r4}"
+// 1 0 1 0 1

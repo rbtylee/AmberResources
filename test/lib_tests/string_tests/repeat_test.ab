@@ -1,0 +1,11 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = repeat("Bash", 3)
+let r1 = repeat("Bash", 1)
+let r2 = repeat("Bash", 3.1)
+let r3 = repeat("", 2)
+let r4 = repeat("B", 3)
+let r5 = repeat("Bash", 0)
+
+echo "<{r0} {r1} {r2} {r3} {r4} {r5}>"
+// <BashBashBash Bash BashBashBash  BBB >

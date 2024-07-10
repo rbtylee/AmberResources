@@ -1,0 +1,9 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = zfill("hello",10)
+let r1 = zfill("hello",0)
+let r2 = zfill("hello",-3)
+let r3 = zfill("",10)
+
+echo "<{r0} {r1} {r2} {r3}>"
+// <00000hello hello hello 0000000000>

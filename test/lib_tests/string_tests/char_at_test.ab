@@ -1,0 +1,11 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = char_at("Bash Rocks", 3)
+let r1 = char_at("Bash Rocks", 0)
+let r2 = char_at("Bash Rocks", 3.1)
+let r3 = char_at("", 2)
+let r4 = char_at("B", -3)
+let r5 = char_at("Bash Rocks", 44)
+
+echo "<{r0} {r1} {r2} {r3} {r4} {r5}>"
+// <h B h   >

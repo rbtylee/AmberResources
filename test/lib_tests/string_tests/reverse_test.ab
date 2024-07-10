@@ -1,0 +1,7 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = reverse("Bash Rocks")
+let r1 = reverse("")
+let r2 = reverse("B")
+echo "{r0} {r1} {r2}"
+// skcoR hsaB  B

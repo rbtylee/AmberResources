@@ -1,0 +1,14 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = slice("Bash Rocks", 2, 5)
+let r1 = slice("Bash Rocks", 5, 5)
+let r2 = slice("Bash Rocks", 5, 10)
+let r3 = slice("", 5, 4)
+let r4 = slice("B", 5, 4)
+let r5 = slice("Bash Rocks", -5, 4)
+let r6 = slice("Bash Rocks", 5, 0)
+let r7 = slice("B",  0, 1)
+let r8 = slice("Bash Rocks", 5, -4)
+
+echo "<{r0} {r1} {r2} {r3} {r4} {r5} {r6} ?{r7} {r8} >"
+// <sh Ro Rocks Rocks   Rock  ?B R >

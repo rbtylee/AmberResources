@@ -23,7 +23,7 @@ teardown() {
 
 @test "deb_is_valid Test : valid deb" {
     run  amber valid-test.ab
-     echo "Captured output: $output"
+    echo "Captured output: $output"
     assert_output 'valid'
 }
 

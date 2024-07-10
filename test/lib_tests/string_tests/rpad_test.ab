@@ -1,0 +1,10 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = rpad("hello","-",10)
+let r1 = rpad("hello","-",0)
+let r2 = rpad("hello","-",-3)
+let r3 = rpad("","-",10)
+let r4 = rpad("hello","",10)
+
+echo "<{r0} {r1} {r2} {r3} {r4}>"
+// <hello----- hello hello ---------- hello>

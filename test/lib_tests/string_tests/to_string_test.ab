@@ -1,0 +1,9 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = to_string("Bash Rocks")
+let r1 = to_string(73)
+let r2 = to_string("")
+let r3 = to_string(["Amber ", "Rocks"])
+let r4 = to_string([1,2,3])
+echo "{r0} {r1} {r2} {r3} {r4}"
+// Bash Rocks 73  Amber Rocks 123

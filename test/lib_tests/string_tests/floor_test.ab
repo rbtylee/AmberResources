@@ -1,0 +1,7 @@
+import * from "../../../lib/string/string.ab"
+
+let tnum = [-3.14, 3.14, 3, 0, 0.3]
+let res  = [Num]
+loop n in tnum { res += [_floor_(n)]}
+echo res
+// -3 3 3 0 0
