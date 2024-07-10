@@ -30,14 +30,14 @@ And whatever commands that are used in the amber libs or scripts.
 
 [BATS](https://bats-core.readthedocs.io/en/stable/) is used for testing so after you clone this repo:
 
-```
+``` sh
 git submodule init
 git submodule update
 ```
 
 ### to run tests
 
-```
+``` sh
 ./test/bats/bin/bats test/
 ```
 
@@ -45,7 +45,7 @@ git submodule update
 
 ### Functions
 
-```
+``` sh
 deb_extract           deb_file
 deb_extract_package   deb_file
 deb_extract_package   deb_file
@@ -55,9 +55,25 @@ deb_list
 deb_is_valid         deb_file
 ```
 
+## Amber string Library
+
+``` sh
+char_at
+char_set
+floor
+in_string
+lpad
+repeat
+reverse
+rpad
+slice
+to_string
+zfill
+```
+
 ## Amber extract Library
 
-```
+``` sh
 extract list of archives
 ```
 
