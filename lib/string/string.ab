@@ -16,19 +16,22 @@ pub fun _floor_(val:Num): Num {
     return unsafe parse(replace(to_string(val), ".*", ""))
 }
 
+// negative index handling ?
 pub fun slice(string: Text, index:Num, length:Num): Text {
     index = _floor_(index)
     length  = _floor_(length)
     return unsafe $echo "\$\{string:index:length}"$
 }
 
+// negative index handling ?
 pub fun char_at(string: Text, index:Num): Text {
     return slice(string, index, 1)
 }
 
+// negative index handling ?
 pub fun char_set(string: Text, index:Num, char:Text): Text {
     if {
-        len(char) == 0: return string
+        len(char) == 0 or index < 0: return string
         len(string) == 0: return char
     }
  
@@ -43,7 +46,7 @@ pub fun repeat(string: Text, value:Num): Text {
     let ret = ""
     if value < 0: return ret
     loop {
-        if i == value:
+        if i == _floor_(value):
             break
         i += 1
         ret += string
@@ -68,7 +71,7 @@ pub fun lpad(string: Text, pad:Text, val:Num): Text {
 }
 
 pub fun zfill(string: Text, val:Num): Text {
-    lpad(string, "0", val)
+    return lpad(string, "0", val)
 }
 
 pub fun reverse(string:Text): Text {
@@ -79,4 +82,3 @@ pub fun in_string(string: Text, value: Text): Bool {
     $echo "{string}" | grep -q "{value}"$ failed: return false
     return true
 }
-
