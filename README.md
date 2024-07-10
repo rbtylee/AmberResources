@@ -64,6 +64,7 @@ char_set
 in_string
 index_in_string
 lpad
+occurrences
 repeat
 reverse
 rpad

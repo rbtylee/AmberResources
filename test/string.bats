@@ -46,6 +46,12 @@ setup() {
     assert_output '<-----hello hello hello ---------- hello>'
 }
 
+@test "occurrences_test Test" {
+    run  amber occurrences_test.ab
+    echo "Captured output: $output"
+    assert_output '2 0 5 0'
+}
+
 @test "repeat_test Test" {
     run  amber repeat_test.ab
     echo "Captured output: $output"

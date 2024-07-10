@@ -95,3 +95,7 @@ pub fun capitalize(string: Text): Text {
   return upper(first_char) + rest
 }
 
+pub fun occurrences(string: Text, value: Text): Num {
+  let count = unsafe $ echo "{string}" | grep -o "{value}" | wc -l $
+  return unsafe parse(count)
+}
