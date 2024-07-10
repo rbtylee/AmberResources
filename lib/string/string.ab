@@ -82,3 +82,9 @@ pub fun in_string(string: Text, value: Text): Bool {
     $echo "{string}" | grep -q "{value}"$ failed: return false
     return true
 }
+
+pub fun index_in_string(string: Text, value: Text): Num {
+    if string == "" or value == "": return -1
+    let index = unsafe $ echo "{string}" | awk -v search="{value}" '\{print index(\$0, search)}' $
+    return unsafe parse(index)-1
+}

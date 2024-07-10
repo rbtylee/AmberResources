@@ -28,6 +28,12 @@ setup() {
     assert_output '1 0 1 0 1'
 }
 
+@test "index_in_string_test Test" {
+    run  amber index_in_string_test.ab
+    echo "Captured output: $output"
+    assert_output '1 -1 -1 -1 -1'
+}
+
 @test "lpad_test Test" {
     run  amber lpad_test.ab
     echo "Captured output: $output"

@@ -1,5 +1,4 @@
-<!-- markdownlint-disable-line MD001 md041 -->
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/paypalme/rbtylee)
+<!-- markdownlint-disable-line MD001 md041 -->[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/paypalme/rbtylee)
 
 # AmberResources
 
@@ -62,6 +61,7 @@ deb_is_valid         deb_file
 char_at
 char_set
 in_string
+index_in_string
 lpad
 repeat
 reverse
