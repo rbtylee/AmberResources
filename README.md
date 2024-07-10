@@ -60,7 +60,6 @@ deb_is_valid         deb_file
 ``` sh
 char_at
 char_set
-floor
 in_string
 lpad
 repeat
