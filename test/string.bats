@@ -4,6 +4,12 @@ setup() {
     cd "$BATS_TEST_DIRNAME/lib_tests/string_tests/"
 }
 
+@test "capitalize_test Test" {
+    run  amber capitalize_test.ab
+    echo "Captured output: $output"
+    assert_output '<Bash rocks Bash rocks  bash Rocks >'
+}
+
 @test "char_at_test Test" {
     run  amber char_at_test.ab
     echo "Captured output: $output"

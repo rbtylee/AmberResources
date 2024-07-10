@@ -58,6 +58,7 @@ deb_is_valid         deb_file
 ## Amber string Library
 
 ``` sh
+capitalize
 char_at
 char_set
 in_string

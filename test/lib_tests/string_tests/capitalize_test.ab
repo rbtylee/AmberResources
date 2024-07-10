@@ -1,0 +1,10 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = capitalize("bash rocks")
+let r1 = capitalize("Bash rocks")
+let r2 = capitalize(" bash Rocks")
+let r3 = capitalize("")
+
+
+echo "<{r0} {r1} {r2} {r3}>"
+// <Bash rocks Bash rocks  bash Rocks >

@@ -88,3 +88,10 @@ pub fun index_in_string(string: Text, value: Text): Num {
     let index = unsafe $ echo "{string}" | awk -v search="{value}" '\{print index(\$0, search)}' $
     return unsafe parse(index)-1
 }
+
+pub fun capitalize(string: Text): Text {
+  let first_char= char_at(string, 0)
+  let rest=slice(string,1, len(string))
+  return upper(first_char) + rest
+}
+
