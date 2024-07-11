@@ -104,6 +104,7 @@ pub fun squeeze(string: Text): Text {
     return unsafe  $echo {string} | tr '\t' ' ' | tr -s ' '  $
 }
 
+// removes WS should it?
 pub fun title(string: Text): Text {
     string = replace(string,"\t"," ")
     let word_list = words(string)
