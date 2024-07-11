@@ -76,6 +76,12 @@ setup() {
     assert_output '<sh Ro Rocks Rocks   Rock  ?B R >'
 }
 
+@test "squeeze_test Test" {
+    run  amber squeeze_test.ab
+    echo "Captured output: $output"
+    assert_output '[hello, hello] [hello, hello] [] []'
+}
+
 @test "to_string_test Test" {
     run  amber to_string_test.ab
     echo "Captured output: $output"

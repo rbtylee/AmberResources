@@ -99,3 +99,7 @@ pub fun occurrences(string: Text, value: Text): Num {
   let count = unsafe $ echo "{string}" | grep -o "{value}" | wc -l $
   return unsafe parse(count)
 }
+
+pub fun squeeze(string: Text): Text {
+    return unsafe  $echo {string} | tr '\t' ' ' | tr -s ' '  $
+}

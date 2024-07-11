@@ -1,0 +1,10 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = squeeze("  hello,        hello")
+let r1 = squeeze("hello, hello    ")
+let r2 = squeeze(" ")
+let r3 = squeeze("")
+
+
+echo "[{r0}] [{r1}] [{r2}] [{r3}]"
+// [hello, hello] [hello, hello] [] []

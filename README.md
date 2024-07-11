@@ -69,6 +69,7 @@ repeat
 reverse
 rpad
 slice
+squeeze
 to_string
 zfill
 ```
