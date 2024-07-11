@@ -82,6 +82,12 @@ setup() {
     assert_output '[hello, hello] [hello, hello] [] []'
 }
 
+@test "title_test Test" {
+    run  amber title_test.ab
+    echo "Captured output: $output"
+    assert_output '[Hello, Hello] [Hello, Hello] [] []'
+}
+
 @test "to_string_test Test" {
     run  amber to_string_test.ab
     echo "Captured output: $output"

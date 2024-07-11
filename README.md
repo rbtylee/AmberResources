@@ -70,6 +70,7 @@ reverse
 rpad
 slice
 squeeze
+title
 to_string
 zfill
 ```

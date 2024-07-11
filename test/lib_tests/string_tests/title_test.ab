@@ -1,0 +1,10 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = title("  hello,        hello")
+let r1 = title("hello, HELLO    ")
+let r2 = title(" ")
+let r3 = title("")
+
+
+echo "[{r0}] [{r1}] [{r2}] [{r3}]"
+// [Hello, Hello] [Hello, Hello] [] []

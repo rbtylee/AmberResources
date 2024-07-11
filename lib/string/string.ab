@@ -103,3 +103,13 @@ pub fun occurrences(string: Text, value: Text): Num {
 pub fun squeeze(string: Text): Text {
     return unsafe  $echo {string} | tr '\t' ' ' | tr -s ' '  $
 }
+
+pub fun title(string: Text): Text {
+    string = replace(string,"\t"," ")
+    let word_list = words(string)
+    let ret = ""
+    loop word in word_list {
+        ret += capitalize(lower(word))+ " "
+    }
+    return trim_right(ret)
+}
