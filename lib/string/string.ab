@@ -12,15 +12,15 @@ pub fun to_string(value): Text {
     return ""
 }
 
-pub fun _floor_(val:Num): Num {
-    return unsafe parse(replace(to_string(val), ".*", ""))
+pub fun _floor_(value:Num): Num {
+    return unsafe parse(replace(to_string(value), ".*", ""))
 }
 
 // negative index handling ?
 pub fun slice(string: Text, index:Num, length:Num): Text {
     index = _floor_(index)
     length  = _floor_(length)
-    return unsafe $echo "\$\{string:index:length}"$
+    return unsafe $ echo "\$\{string:index:length}" $
 }
 
 // negative index handling ?
@@ -54,24 +54,24 @@ pub fun repeat(string: Text, value:Num): Text {
     return ret
 }
 
-pub fun rpad(string: Text, pad:Text, val:Num): Text {
-    if len(string) >= val: return string
+pub fun rpad(string: Text, pad:Text, value:Num): Text {
+    if len(string) >= value: return string
     if len(pad) > 1: pad = char_at(pad,0)
-    let adjoin=val - len(string)
+    let adjoin = value - len(string)
     string = string + repeat(pad, adjoin)
     return string
 }
 
-pub fun lpad(string: Text, pad:Text, val:Num): Text {
-    if len(string) >= val: return string
+pub fun lpad(string: Text, pad:Text, value:Num): Text {
+    if len(string) >= value: return string
     if len(pad) > 1: pad = char_at(pad,0)
-    let adjoin=val - len(string)
+    let adjoin = value - len(string)
     string = repeat(pad, adjoin) + string
     return string
 }
 
-pub fun zfill(string: Text, val:Num): Text {
-    return lpad(string, "0", val)
+pub fun zfill(string: Text, value:Num): Text {
+    return lpad(string, "0", value)
 }
 
 pub fun reverse(string:Text): Text {
@@ -79,7 +79,7 @@ pub fun reverse(string:Text): Text {
 }
 
 pub fun in_string(string: Text, value: Text): Bool {
-    $echo "{string}" | grep -q "{value}"$ failed: return false
+    $ echo "{string}" | grep -q "{value}" $ failed: return false
     return true
 }
 
@@ -91,7 +91,7 @@ pub fun index_in_string(string: Text, value: Text): Num {
 
 pub fun capitalize(string: Text): Text {
   let first_char= char_at(string, 0)
-  let rest=slice(string,1, len(string))
+  let rest = slice(string,1, len(string))
   return upper(first_char) + rest
 }
 
@@ -101,7 +101,7 @@ pub fun occurrences(string: Text, value: Text): Num {
 }
 
 pub fun squeeze(string: Text): Text {
-    return unsafe  $echo {string} | tr '\t' ' ' | tr -s ' '  $
+    return unsafe  $ echo {string} | tr '\t' ' ' | tr -s ' '  $
 }
 
 // removes WS should it?
