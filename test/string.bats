@@ -22,7 +22,7 @@ setup() {
     assert_output 'BasH Rocks Hash Rocks BasH Rocks H B Bash RocksH'
 }
 
-@test "floor_testlstrip" {
+@test "floor_test" {
     run  amber floor_test.ab
     echo "Captured output: $output"
     assert_output '-3 3 3 0 0'
