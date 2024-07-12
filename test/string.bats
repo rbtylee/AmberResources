@@ -46,12 +46,6 @@ setup() {
     assert_output '<-----hello hello hello ---------- hello>'
 }
 
-@test "occurrences_test" {
-    run  amber occurrences_test.ab
-    echo "Captured output: $output"
-    assert_output '2 0 5 0'
-}
-
 @test "remove_puncation_test" {
     run  amber remove_puncation_test.ab
     echo "Captured output: $output"

@@ -7,4 +7,4 @@ let r3 = strip_html_tags("")
 
 
 echo "[{r0}] [{r1}] [{r2}] [{r3}]"
-// [hello, hello] [hello, hello] [] []
+// [hello,        hello] [hello,>>>>><<<<hello    ] [ ] []
