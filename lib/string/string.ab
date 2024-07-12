@@ -127,3 +127,6 @@ pub fun remove_puncation(string: Text): Text {
     return unsafe $ echo "{string}" | tr -d '[:punct:]' $
 }
 
+pub fun sanitize(string: Text, allowed: Text): Text {
+    return unsafe $ echo "{string}" | sed "s/[^[:alnum:]{allowed}]//g" $
+}

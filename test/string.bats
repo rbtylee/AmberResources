@@ -88,6 +88,12 @@ setup() {
     assert_output '[hello, hello] [hello, hello] [] []'
 }
 
+@test "sanitize_test" {
+    run  amber sanitize_test.ab
+    echo "Captured output: $output"
+    assert_output '[Bash rocks] [Bash: is kool] [Bash1960=shell] [] []'
+}
+
 @test "title_test" {
     run  amber title_test.ab
     echo "Captured output: $output"

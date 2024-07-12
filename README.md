@@ -65,9 +65,11 @@ in_string
 index_in_string
 lpad
 occurrences
+remove_puncation
 repeat
 reverse
 rpad
+sanitize
 slice
 squeeze
 title

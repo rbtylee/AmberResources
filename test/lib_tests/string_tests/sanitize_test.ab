@@ -1,0 +1,11 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = sanitize("Bash, rocks!!", " ")
+let r1 = sanitize("Bash: is kool,", ": ")
+let r2 = sanitize("Bash1960=shell", "=")
+let r3 = sanitize("", "/?")
+let r4 = sanitize(" ", "")
+
+
+echo "[{r0}] [{r1}] [{r2}] [{r3}] [{r4}]"
+// [Bash rocks] [Bash: is kool] [Bash1960=shell] [] []
