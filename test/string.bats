@@ -28,6 +28,12 @@ setup() {
     assert_output '-3 3 3 0 0'
 }
 
+@test "generate_password_test" {
+    run  amber generate_password_test.ab
+    echo "Captured output: $output"
+    assert_output '10 0 0'
+}
+
 @test "in_string_test" {
     run  amber in_string_test.ab
     echo "Captured output: $output"

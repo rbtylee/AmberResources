@@ -61,6 +61,7 @@ deb_is_valid         deb_file
 capitalize
 char_at
 char_set
+enerate_password
 in_string
 index_in_string
 lpad

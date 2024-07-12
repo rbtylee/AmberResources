@@ -129,3 +129,8 @@ pub fun sanitize(string: Text, allowed: Text): Text {
 pub fun strip_html_tags(string: Text): Text {
     return replace_regex(string,"<[^>]*>","")
 }
+
+pub fun generate_password(length: Num): Text {
+    if length < 1: return ""
+    return unsafe $ tr -dc 'A-Za-z0-9!@#\$%^&*()_+-=' < /dev/urandom | head -c "{length}" $
+}
