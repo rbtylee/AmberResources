@@ -52,6 +52,12 @@ setup() {
     assert_output '2 0 5 0'
 }
 
+@test "remove_puncation_test" {
+    run  amber remove_puncation_test.ab
+    echo "Captured output: $output"
+    assert_output '<Bash rocks> <Bash is kool> <Bashshell> <> < >'
+}
+
 @test "repeat_test" {
     run  amber repeat_test.ab
     echo "Captured output: $output"
@@ -105,5 +111,3 @@ setup() {
     echo "Captured output: $output"
     assert_output '<00000hello hello hello 0000000000>'
 }
-
-

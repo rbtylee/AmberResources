@@ -1,0 +1,11 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = remove_puncation("Bash, rocks!!")
+let r1 = remove_puncation("Bash: is kool,")
+let r2 = remove_puncation("Bash=shell")
+let r3 = remove_puncation("")
+let r4 = remove_puncation(" ")
+
+
+echo "<Bash rocks> <Bash is kool> <Bashshell> <> < >"
+// [amber-rocks] [amber-rocks] [] []

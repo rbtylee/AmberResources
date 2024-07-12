@@ -5,5 +5,5 @@ let r1 = to_url(" aMBER\   @/rOcks!!   ")
 let r2 = to_url(" ")
 let r3 = to_url("")
 
-
 echo "[{r0}] [{r1}] [{r2}] [{r3}]"
+// [amber-rocks] [amber-rocks] [] []

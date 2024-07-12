@@ -122,3 +122,8 @@ pub fun to_url(string: Text): Text {
     let url = unsafe $ echo "{string}" | tr -cd '[:alnum:][:space:]' | tr '[:space:]' '-' | tr '[:upper:]' '[:lower:]' | sed 's/-\$//' $
     return url
 }
+
+pub fun remove_puncation(string: Text): Text {
+    return unsafe $ echo "{string}" | tr -d '[:punct:]' $
+}
+
