@@ -130,3 +130,7 @@ pub fun remove_puncation(string: Text): Text {
 pub fun sanitize(string: Text, allowed: Text): Text {
     return unsafe $ echo "{string}" | sed "s/[^[:alnum:]{allowed}]//g" $
 }
+
+pub fun strip_html_tags(string: Text): Text {
+    return replace_regex(string,"<[^>]*>","")
+}

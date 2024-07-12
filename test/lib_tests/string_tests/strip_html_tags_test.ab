@@ -1,0 +1,10 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = strip_html_tags("<b>hello,        hello</b>")
+let r1 = strip_html_tags("hello,>>>>><<<<hello    ")
+let r2 = strip_html_tags(" ")
+let r3 = strip_html_tags("")
+
+
+echo "[{r0}] [{r1}] [{r2}] [{r3}]"
+// [hello, hello] [hello, hello] [] []

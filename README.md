@@ -72,6 +72,7 @@ rpad
 sanitize
 slice
 squeeze
+strip_html_tags
 title
 to_string
 to_url

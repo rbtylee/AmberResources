@@ -94,6 +94,12 @@ setup() {
     assert_output '[Bash rocks] [Bash: is kool] [Bash1960=shell] [] []'
 }
 
+@test "strip_html_tags_test" {
+    run  amber strip_html_tags_test.ab
+    echo "Captured output: $output"
+    assert_output '[hello,        hello] [hello,>>>>><<<<hello    ] [ ] []'
+}
+
 @test "title_test" {
     run  amber title_test.ab
     echo "Captured output: $output"
