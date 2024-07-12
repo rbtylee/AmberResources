@@ -94,8 +94,16 @@ setup() {
     assert_output 'Bash Rocks 73  Amber Rocks 123'
 }
 
+@test "to_url_test" {
+    run  amber to_url_test.ab
+    echo "Captured output: $output"
+    assert_output '[amber-rocks] [amber-rocks] [] []'
+}
+
 @test "zfill_test" {
     run  amber zfill_test.ab
     echo "Captured output: $output"
     assert_output '<00000hello hello hello 0000000000>'
 }
+
+

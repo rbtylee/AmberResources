@@ -72,6 +72,7 @@ slice
 squeeze
 title
 to_string
+to_url
 zfill
 ```
 

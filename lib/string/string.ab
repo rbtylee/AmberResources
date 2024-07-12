@@ -4,10 +4,9 @@ pub fun to_string(value): Text {
     if {
         value is Text: return "{value}"
         value is Num: {
-            //let a = unsafe $echo "{value}"$
-            return unsafe $echo "{value}"$
+            return unsafe $ echo "{value}" $
             }
-        value is [Text] or value is [Num]: return  unsafe $IFS="" ; echo "\$\{{nameof value}[*]}"$
+        value is [Text] or value is [Num]: return  unsafe $ IFS="" ; echo "\$\{{nameof value}[*]}" $
     }
     return ""
 }
@@ -75,7 +74,7 @@ pub fun zfill(string: Text, value:Num): Text {
 }
 
 pub fun reverse(string:Text): Text {
-	return unsafe $echo "{string}" | rev$
+	return unsafe $ echo "{string}" | rev $
 }
 
 pub fun in_string(string: Text, value: Text): Bool {
@@ -113,4 +112,13 @@ pub fun title(string: Text): Text {
         ret += capitalize(lower(word))+ " "
     }
     return trim_right(ret)
+}
+
+// This function takes a string as input and generates a URL-friendly slug by 
+// removing special characters, replacing spaces with hyphens, and converting 
+// all characters to lowercase. 
+pub fun to_url(string: Text): Text {
+    string = squeeze(string)
+    let url = unsafe $ echo "{string}" | tr -cd '[:alnum:][:space:]' | tr '[:space:]' '-' | tr '[:upper:]' '[:lower:]' | sed 's/-\$//' $
+    return url
 }

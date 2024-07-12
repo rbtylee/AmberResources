@@ -1,0 +1,9 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = to_url("Amber ROCKS!!")
+let r1 = to_url(" aMBER\   @/rOcks!!   ")
+let r2 = to_url(" ")
+let r3 = to_url("")
+
+
+echo "[{r0}] [{r1}] [{r2}] [{r3}]"
