@@ -89,9 +89,9 @@ pub fun index_in_string(string: Text, value: Text): Num {
 }
 
 pub fun capitalize(string: Text): Text {
-  let first_char= char_at(string, 0)
-  let rest = slice(string,1, len(string))
-  return upper(first_char) + rest
+    let first_char= char_at(string, 0)
+    let rest = slice(string,1, len(string))
+    return upper(first_char) + rest
 }
 
 pub fun squeeze(string: Text): Text {
