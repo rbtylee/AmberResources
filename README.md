@@ -64,6 +64,8 @@ char_set
 enerate_password
 in_string
 index_in_string
+is_ascii
+is_alnum
 lpad
 remove_puncation
 repeat
