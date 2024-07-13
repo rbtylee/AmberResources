@@ -1,0 +1,10 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = is_alnum("BashRocks")
+let r1 = is_alnum("BashRöcks")
+let r2 = is_alnum("Bash,Rock&")
+let r3 = is_alnum("Bash, Rock")
+let r4 = is_alnum("")
+
+echo "{r0} {r1} {r2} {r3} {r4}"
+// 1 0 1 1$$

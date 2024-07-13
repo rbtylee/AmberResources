@@ -134,3 +134,17 @@ pub fun generate_password(length: Num): Text {
     if length < 1: return ""
     return unsafe $ tr -dc 'A-Za-z0-9!@#\$%^&*()_+-=' < /dev/urandom | head -c "{length}" $
 }
+
+pub fun is_ascii(string: Text): Bool {
+    $ echo "{string}" | LC_ALL=C grep -q '[^ -~]'$ failed {
+        return true
+    }
+    return false
+}
+
+pub fun is_alnum(string: Text): Bool {
+    $  [[ "{string}" =~ ^[[:alnum:]]*\$ ]] $ failed {
+        return false
+    }
+    return true
+}

@@ -46,6 +46,18 @@ setup() {
     assert_output '1 -1 -1 -1 -1'
 }
 
+@test "is_alnum_test" {
+    run  amber is_alnum_test.ab
+    echo "Captured output: $output"
+    assert_output '1 1 0 0 1'
+}
+
+@test "is_ascii_test" {
+    run  amber is_ascii_test.ab
+    echo "Captured output: $output"
+    assert_output '1 0 1 1'
+}
+
 @test "lpad_test" {
     run  amber lpad_test.ab
     echo "Captured output: $output"

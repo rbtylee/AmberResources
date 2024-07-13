@@ -1,0 +1,9 @@
+import * from "../../../lib/string/string.ab"
+
+let r0 = is_ascii("Bash Rocks")
+let r1 = is_ascii("Bash Röcks")
+let r2 = is_ascii(" ")
+let r3 = is_ascii("")
+
+echo "{r0} {r1} {r2} {r3}"
+// 1 0 1 1
